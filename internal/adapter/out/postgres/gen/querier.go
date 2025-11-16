@@ -14,8 +14,6 @@ type Querier interface {
 	// ===== password_resets (OTP) =====
 	CreatePasswordResetOTP(ctx context.Context, arg CreatePasswordResetOTPParams) (PasswordReset, error)
 	// ===== refresh_sessions =====
-	// В MVP не заполняем ua/ip (их можно добавить позже),
-	// чтобы не усложнять типы. Колонки останутся NULL.
 	CreateRefreshSession(ctx context.Context, arg CreateRefreshSessionParams) (RefreshSession, error)
 	// ===== users =====
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)

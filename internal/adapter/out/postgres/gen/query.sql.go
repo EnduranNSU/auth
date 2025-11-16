@@ -52,8 +52,6 @@ type CreateRefreshSessionParams struct {
 }
 
 // ===== refresh_sessions =====
-// В MVP не заполняем ua/ip (их можно добавить позже),
-// чтобы не усложнять типы. Колонки останутся NULL.
 func (q *Queries) CreateRefreshSession(ctx context.Context, arg CreateRefreshSessionParams) (RefreshSession, error) {
 	row := q.db.QueryRowContext(ctx, createRefreshSession, arg.UserID, arg.TokenHash, arg.ExpiresAt)
 	var i RefreshSession
