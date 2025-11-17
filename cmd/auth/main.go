@@ -22,6 +22,16 @@ func init() {
 	})
 }
 
+// @title           Enduran Auth API
+// @version         1.0
+// @description     Сервис аутентификации Enduran (регистрация, логин, refresh, сброс пароля)
+// @BasePath        /
+
+// @schemes         http
+
+// @securityDefinitions.apikey BearerAuth
+// @in              header
+// @name            Authorization
 func main() {
 	var cfg app.Config
 	cfgName := app.GetConfigName()

@@ -41,3 +41,7 @@ type ValidateResponse struct {
 type ErrorResponse struct {
 	Error string `json:"error"`
 }
+
+type StartResetDevResponse struct {
+	DevCode string `json:"dev_code"`
+}

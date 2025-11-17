@@ -3,7 +3,11 @@ package httpin
 import (
 	"net/http"
 
+	_ "auth/docs"
+
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewGinRouter(h *AuthHandler) *gin.Engine {
@@ -13,6 +17,8 @@ func NewGinRouter(h *AuthHandler) *gin.Engine {
 	r.GET("/healthz", func(c *gin.Context) {
 		c.String(http.StatusOK, "ok")
 	})
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	a := r.Group("/auth/v1")
 	{
