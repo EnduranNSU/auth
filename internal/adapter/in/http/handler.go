@@ -203,9 +203,9 @@ func (h *AuthHandler) ConfirmReset(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// Validate проверяет валидность access-токена и возвращает его клеймы
+// Validate проверяет валидность access-токена
 // @Summary      Валидация access-токена
-// @Description  Парсит и проверяет JWT access-токен, возвращает subject, issuer, время истечения и все клеймы
+// @Description  Проверяет access-токен, убеждается что пользователь существует и не заблокирован, и возвращает его ID.
 // @Tags         auth
 // @Accept       json
 // @Produce      json

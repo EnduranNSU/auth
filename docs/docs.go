@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.LoginRequest"
                         }
                     }
                 ],
@@ -43,31 +43,31 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.TokenResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.TokenResponse"
                         }
                     },
                     "400": {
                         "description": "Неверный формат запроса",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Неверные учётные данные",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Пользователь заблокирован",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Внутренняя ошибка сервера",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -92,7 +92,7 @@ const docTemplate = `{
                         "name": "request",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/dto.RefreshRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.RefreshRequest"
                         }
                     }
                 ],
@@ -106,7 +106,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Неверный формат запроса",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -132,7 +132,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.ConfirmResetRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ConfirmResetRequest"
                         }
                     }
                 ],
@@ -146,7 +146,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Неверный код или некорректные данные",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -172,7 +172,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.StartResetRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.StartResetRequest"
                         }
                     }
                 ],
@@ -180,7 +180,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Dev-режим: OTP-код в ответе",
                         "schema": {
-                            "$ref": "#/definitions/dto.StartResetDevResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.StartResetDevResponse"
                         }
                     },
                     "204": {
@@ -192,7 +192,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Неверный формат запроса",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -218,7 +218,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.RefreshRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.RefreshRequest"
                         }
                     }
                 ],
@@ -226,25 +226,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.TokenResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.TokenResponse"
                         }
                     },
                     "400": {
                         "description": "Неверный формат запроса",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Невалидный или просроченный refresh-токен",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Внутренняя ошибка сервера",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -270,7 +270,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.RegisterRequest"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.RegisterRequest"
                         }
                     }
                 ],
@@ -278,25 +278,25 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.TokenResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.TokenResponse"
                         }
                     },
                     "400": {
                         "description": "Неверный формат запроса",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Пользователь с таким email уже существует",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Внутренняя ошибка сервера",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -309,7 +309,7 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Парсит и проверяет JWT access-токен, возвращает subject, issuer, время истечения и все клеймы",
+                "description": "Проверяет access-токен, убеждается что пользователь существует и не заблокирован, и возвращает его ID.",
                 "consumes": [
                     "application/json"
                 ],
@@ -334,13 +334,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.ValidateResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ValidateResponse"
                         }
                     },
                     "401": {
                         "description": "Нет токена или он невалиден",
                         "schema": {
-                            "$ref": "#/definitions/dto.ErrorResponse"
+                            "$ref": "#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse"
                         }
                     }
                 }
@@ -348,7 +348,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dto.ConfirmResetRequest": {
+        "auth_internal_adapter_in_http_dto.ConfirmResetRequest": {
             "type": "object",
             "properties": {
                 "code": {
@@ -362,7 +362,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ErrorResponse": {
+        "auth_internal_adapter_in_http_dto.ErrorResponse": {
             "type": "object",
             "properties": {
                 "error": {
@@ -370,7 +370,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.LoginRequest": {
+        "auth_internal_adapter_in_http_dto.LoginRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -381,7 +381,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.RefreshRequest": {
+        "auth_internal_adapter_in_http_dto.RefreshRequest": {
             "type": "object",
             "properties": {
                 "refresh_token": {
@@ -389,7 +389,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.RegisterRequest": {
+        "auth_internal_adapter_in_http_dto.RegisterRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -400,7 +400,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.StartResetDevResponse": {
+        "auth_internal_adapter_in_http_dto.StartResetDevResponse": {
             "type": "object",
             "properties": {
                 "dev_code": {
@@ -408,7 +408,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.StartResetRequest": {
+        "auth_internal_adapter_in_http_dto.StartResetRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -416,7 +416,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.TokenResponse": {
+        "auth_internal_adapter_in_http_dto.TokenResponse": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -427,20 +427,10 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ValidateResponse": {
+        "auth_internal_adapter_in_http_dto.ValidateResponse": {
             "type": "object",
             "properties": {
-                "claims": {
-                    "type": "object",
-                    "additionalProperties": {}
-                },
-                "exp_at": {
-                    "type": "string"
-                },
-                "iss": {
-                    "type": "string"
-                },
-                "sub": {
+                "user_id": {
                     "type": "string"
                 }
             }

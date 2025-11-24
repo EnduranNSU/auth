@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  dto.ConfirmResetRequest:
+  auth_internal_adapter_in_http_dto.ConfirmResetRequest:
     properties:
       code:
         type: string
@@ -9,57 +9,50 @@ definitions:
       new_password:
         type: string
     type: object
-  dto.ErrorResponse:
+  auth_internal_adapter_in_http_dto.ErrorResponse:
     properties:
       error:
         type: string
     type: object
-  dto.LoginRequest:
+  auth_internal_adapter_in_http_dto.LoginRequest:
     properties:
       email:
         type: string
       password:
         type: string
     type: object
-  dto.RefreshRequest:
+  auth_internal_adapter_in_http_dto.RefreshRequest:
     properties:
       refresh_token:
         type: string
     type: object
-  dto.RegisterRequest:
+  auth_internal_adapter_in_http_dto.RegisterRequest:
     properties:
       email:
         type: string
       password:
         type: string
     type: object
-  dto.StartResetDevResponse:
+  auth_internal_adapter_in_http_dto.StartResetDevResponse:
     properties:
       dev_code:
         type: string
     type: object
-  dto.StartResetRequest:
+  auth_internal_adapter_in_http_dto.StartResetRequest:
     properties:
       email:
         type: string
     type: object
-  dto.TokenResponse:
+  auth_internal_adapter_in_http_dto.TokenResponse:
     properties:
       access_token:
         type: string
       refresh_token:
         type: string
     type: object
-  dto.ValidateResponse:
+  auth_internal_adapter_in_http_dto.ValidateResponse:
     properties:
-      claims:
-        additionalProperties: {}
-        type: object
-      exp_at:
-        type: string
-      iss:
-        type: string
-      sub:
+      user_id:
         type: string
     type: object
 info:
@@ -79,30 +72,30 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.LoginRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.TokenResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.TokenResponse'
         "400":
           description: Неверный формат запроса
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "401":
           description: Неверные учётные данные
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "403":
           description: Пользователь заблокирован
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "500":
           description: Внутренняя ошибка сервера
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Логин пользователя
       tags:
       - auth
@@ -116,7 +109,7 @@ paths:
         in: body
         name: request
         schema:
-          $ref: '#/definitions/dto.RefreshRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.RefreshRequest'
       produces:
       - application/json
       responses:
@@ -127,7 +120,7 @@ paths:
         "400":
           description: Неверный формат запроса
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Логаут с одного устройства
       tags:
       - auth
@@ -143,7 +136,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.ConfirmResetRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.ConfirmResetRequest'
       produces:
       - application/json
       responses:
@@ -154,7 +147,7 @@ paths:
         "400":
           description: Неверный код или некорректные данные
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Подтверждение сброса пароля
       tags:
       - password-reset
@@ -170,14 +163,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.StartResetRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.StartResetRequest'
       produces:
       - application/json
       responses:
         "200":
           description: 'Dev-режим: OTP-код в ответе'
           schema:
-            $ref: '#/definitions/dto.StartResetDevResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.StartResetDevResponse'
         "204":
           description: 'В проде: всегда 204, даже если email не найден'
           schema:
@@ -185,7 +178,7 @@ paths:
         "400":
           description: Неверный формат запроса
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Начало сброса пароля
       tags:
       - password-reset
@@ -201,26 +194,26 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.RefreshRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.RefreshRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.TokenResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.TokenResponse'
         "400":
           description: Неверный формат запроса
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "401":
           description: Невалидный или просроченный refresh-токен
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "500":
           description: Внутренняя ошибка сервера
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Обновление токенов
       tags:
       - auth
@@ -235,26 +228,26 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.RegisterRequest'
+          $ref: '#/definitions/auth_internal_adapter_in_http_dto.RegisterRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.TokenResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.TokenResponse'
         "400":
           description: Неверный формат запроса
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "409":
           description: Пользователь с таким email уже существует
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
         "500":
           description: Внутренняя ошибка сервера
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       summary: Регистрация пользователя
       tags:
       - auth
@@ -262,8 +255,8 @@ paths:
     get:
       consumes:
       - application/json
-      description: Парсит и проверяет JWT access-токен, возвращает subject, issuer,
-        время истечения и все клеймы
+      description: Проверяет access-токен, убеждается что пользователь существует
+        и не заблокирован, и возвращает его ID.
       parameters:
       - default: Bearer <token>
         description: Bearer access токен
@@ -277,11 +270,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.ValidateResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ValidateResponse'
         "401":
           description: Нет токена или он невалиден
           schema:
-            $ref: '#/definitions/dto.ErrorResponse'
+            $ref: '#/definitions/auth_internal_adapter_in_http_dto.ErrorResponse'
       security:
       - BearerAuth: []
       summary: Валидация access-токена
