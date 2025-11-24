@@ -153,17 +153,27 @@ func (s *Service) ConfirmPasswordResetOTP(ctx context.Context, email, code, newP
 	return nil
 }
 
-func (s *Service) ValidateAccess(_ context.Context, access string) (uuid.UUID, jwt.MapClaims, error) {
+func (s *Service) ValidateAccess(ctx context.Context, access string) (uuid.UUID, error) {
 	claims, err := s.parseAccess(access)
 	if err != nil {
-		return uuid.Nil, nil, err
+		return uuid.Nil, err
 	}
+
 	subStr, _ := claims["sub"].(string)
 	id, err := uuid.Parse(subStr)
 	if err != nil {
-		return uuid.Nil, nil, err
+		return uuid.Nil, err
 	}
-	return id, claims, nil
+
+	u, err := s.users.ByID(ctx, id)
+	if err != nil {
+		return uuid.Nil, domain.ErrInvalidCreds
+	}
+	if u.IsBlocked {
+		return uuid.Nil, domain.ErrInvalidCreds
+	}
+
+	return u.ID, nil
 }
 
 func (s *Service) issuePair(ctx context.Context, userID uuid.UUID) (TokenPair, error) {

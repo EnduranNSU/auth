@@ -3,7 +3,6 @@ package httpin
 import (
 	"net/http"
 	"strings"
-	"time"
 
 	"auth/internal/adapter/in/http/dto"
 	"auth/internal/domain"
@@ -222,22 +221,13 @@ func (h *AuthHandler) Validate(c *gin.Context) {
 		return
 	}
 
-	sub, claims, err := h.svc.ValidateAccess(c.Request.Context(), access)
+	userID, err := h.svc.ValidateAccess(c.Request.Context(), access)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, dto.ErrorResponse{Error: "invalid_token"})
 		return
 	}
 
-	var exp time.Time
-	if v, ok := claims["exp"].(float64); ok {
-		exp = time.Unix(int64(v), 0).UTC()
-	}
-
-	iss, _ := claims["iss"].(string)
 	c.JSON(http.StatusOK, dto.ValidateResponse{
-		Sub:       sub.String(),
-		Issuer:    iss,
-		ExpiresAt: exp,
-		Claims:    claims,
+		UserID: userID.String(),
 	})
 }

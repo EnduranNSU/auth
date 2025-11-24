@@ -1,7 +1,5 @@
 package dto
 
-import "time"
-
 type RegisterRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -31,11 +29,15 @@ type ConfirmResetRequest struct {
 	NewPassword string `json:"new_password"`
 }
 
+// type ValidateResponse struct {
+// 	Sub       string         `json:"sub"`
+// 	Issuer    string         `json:"iss"`
+// 	ExpiresAt time.Time      `json:"exp_at"`
+// 	Claims    map[string]any `json:"claims"`
+// }
+
 type ValidateResponse struct {
-	Sub       string         `json:"sub"`
-	Issuer    string         `json:"iss"`
-	ExpiresAt time.Time      `json:"exp_at"`
-	Claims    map[string]any `json:"claims"`
+	UserID string `json:"user_id"`
 }
 
 type ErrorResponse struct {
