@@ -1,18 +1,18 @@
-# ===== Code generation =====
-gen:
-	@echo "Generating code..."
+sqlc:
+	@echo "Sqlc generate"
 	@go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
-	@rm -rf docs/
-	@go run github.com/swaggo/swag/cmd/swag@v1.16.6 init \
-		-g cmd/auth/main.go \
-		--output docs \
-		--parseDependency \
-		--parseInternal
 	@cd config && sqlc generate
-	@echo "Code generated successfully"
+
+swag:
+	@go run github.com/swaggo/swag/cmd/swag@latest init -g internal/adapter/in/http/router.go --output docs/ --parseDependency --parseInternal
+
+# Generating code
+gen: sqlc swag
+	@echo "Generating code..."
+	echo "Code generated successfully"
 
 # ===== Dependencies =====
-deps: gen mocks
+deps: gen
 	@echo "Installing dependencies..."
 	@go generate ./...
 	@go mod download
@@ -39,13 +39,6 @@ lint:
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	@golangci-lint run --tests=false --disable-all --timeout=2m -p error
 
-# ===== Mocks =====
-mocks:
-	@echo "Generating mocks..."
-	@go run github.com/vektra/mockery/v2@latest --dir=internal/domain --name=UserRepository --output=internal/mocks
-	@go run github.com/vektra/mockery/v2@latest --dir=internal/domain --name=RefreshRepository --output=internal/mocks
-	@go run github.com/vektra/mockery/v2@latest --dir=internal/domain --name=PasswordResetRepository --output=internal/mocks
-	@go mod tidy
 
 # ===== Tests =====
 test: mocks

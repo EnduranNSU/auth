@@ -1,3 +1,7 @@
+// @title Training API
+// @version 1.0
+// @description Сервис авторизации
+// @BasePath /api/v1
 package httpin
 
 import (
@@ -10,6 +14,11 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// NewGinRouter создает новый Gin router
+// @title Enduran Training API
+// @version 1.0
+// @description Сервис авторизации
+// @BasePath /api/v1
 func NewGinRouter(h *AuthHandler) *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Recovery())

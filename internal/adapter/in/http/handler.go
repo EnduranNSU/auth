@@ -41,7 +41,7 @@ func bearer(c *gin.Context) string {
 // @Failure      400      {object}  dto.ErrorResponse   "Неверный формат запроса"
 // @Failure      409      {object}  dto.ErrorResponse   "Пользователь с таким email уже существует"
 // @Failure      500      {object}  dto.ErrorResponse   "Внутренняя ошибка сервера"
-// @Router       /auth/v1/register [post]
+// @Router       /register [post]
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req dto.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -77,7 +77,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 // @Failure      401      {object}  dto.ErrorResponse   "Неверные учётные данные"
 // @Failure      403      {object}  dto.ErrorResponse   "Пользователь заблокирован"
 // @Failure      500      {object}  dto.ErrorResponse   "Внутренняя ошибка сервера"
-// @Router       /auth/v1/login [post]
+// @Router       /login [post]
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req dto.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -115,7 +115,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 // @Failure      400      {object}  dto.ErrorResponse   "Неверный формат запроса"
 // @Failure      401      {object}  dto.ErrorResponse   "Невалидный или просроченный refresh-токен"
 // @Failure      500      {object}  dto.ErrorResponse   "Внутренняя ошибка сервера"
-// @Router       /auth/v1/refresh [post]
+// @Router       /refresh [post]
 func (h *AuthHandler) Refresh(c *gin.Context) {
 	var req dto.RefreshRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -144,7 +144,7 @@ func (h *AuthHandler) Refresh(c *gin.Context) {
 // @Param        request  body      dto.RefreshRequest  false  "Refresh токен (опционально)"
 // @Success      204      {string}  string              "Успешный логаут, тело отсутствует"
 // @Failure      400      {object}  dto.ErrorResponse   "Неверный формат запроса"
-// @Router       /auth/v1/logout [post]
+// @Router       /logout [post]
 func (h *AuthHandler) Logout(c *gin.Context) {
 	var req dto.RefreshRequest
 	_ = c.ShouldBindJSON(&req)
@@ -162,7 +162,7 @@ func (h *AuthHandler) Logout(c *gin.Context) {
 // @Success      200      {object}  dto.StartResetDevResponse   "Dev-режим: OTP-код в ответе"
 // @Success      204      {string}  string                      "В проде: всегда 204, даже если email не найден"
 // @Failure      400      {object}  dto.ErrorResponse           "Неверный формат запроса"
-// @Router       /auth/v1/password/reset/start [post]
+// @Router       /password/reset/start [post]
 func (h *AuthHandler) StartReset(c *gin.Context) {
 	var req dto.StartResetRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -188,7 +188,7 @@ func (h *AuthHandler) StartReset(c *gin.Context) {
 // @Param        request  body      dto.ConfirmResetRequest  true  "Email, OTP-код и новый пароль"
 // @Success      204      {string}  string                   "Пароль успешно изменён, тело отсутствует"
 // @Failure      400      {object}  dto.ErrorResponse        "Неверный код или некорректные данные"
-// @Router       /auth/v1/password/reset/confirm [post]
+// @Router       /password/reset/confirm [post]
 func (h *AuthHandler) ConfirmReset(c *gin.Context) {
 	var req dto.ConfirmResetRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -213,7 +213,7 @@ func (h *AuthHandler) ConfirmReset(c *gin.Context) {
 // @Success      200            {object}  dto.ValidateResponse
 // @Failure      401            {object}  dto.ErrorResponse  "Нет токена или он невалиден"
 // @Security     BearerAuth
-// @Router       /auth/v1/validate [get]
+// @Router       /validate [get]
 func (h *AuthHandler) Validate(c *gin.Context) {
 	access := bearer(c)
 	if access == "" {

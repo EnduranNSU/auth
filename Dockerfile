@@ -1,28 +1,46 @@
-FROM golang:1.25-alpine AS builder
+ARG GOLANG_VERSION=1.25-alpine3.21
+ARG ALPINE_VERSION=3.21
+
+FROM golang:${GOLANG_VERSION} AS deps
 
 WORKDIR /app
 
-RUN apk add --no-cache git ca-certificates
+COPY ./ ./
 
-COPY go.mod go.sum ./
-RUN go mod download
-
-COPY . .
-
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o auth ./cmd/auth
-
-FROM alpine:3.20
+ENV GO111MODULE=on
 
 WORKDIR /app
 
-RUN apk add --no-cache ca-certificates
+ENV CGO_ENABLED=0
+ARG ARTIFACT_VERSION
 
-COPY --from=builder /app/auth /app/auth
+RUN apk add --no-cache make
 
-COPY config/config.yaml /app/config/config.yaml
+RUN make build 
 
-ENV GIN_MODE=release
+FROM deps AS build
 
-EXPOSE 8080
+FROM alpine:${ALPINE_VERSION} AS runtime
+
+WORKDIR /app
+
+COPY --from=build /app/bin /app
+
+RUN apk update \
+    && apk add --no-cache --upgrade \
+        bash \
+        ca-certificates \
+        curl \
+        tzdata \
+    && update-ca-certificates \
+    && echo 'Etc/UTC' > /etc/timezone \
+    && adduser --disabled-password --home /app --gecos '' gouser \
+    && chown -R gouser /app
+
+ENV TZ     :/etc/localtime
+ENV LANG   en_US.utf8
+ENV LC_ALL en_US.UTF-8
+
+USER gouser
 
 ENTRYPOINT ["/app/auth"]
