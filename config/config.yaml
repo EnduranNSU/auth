@@ -2,7 +2,7 @@ http:
   addr: ":8082"
 
 db:
-  dsn: "postgres://postgres:postgres@postgres:5432/auth?sslmode=disable"
+  dsn: "postgres://postgres:password@postgres:5432/myapp?sslmode=disable"
   
 logger:
   level: "debug"
